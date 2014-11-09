@@ -441,6 +441,7 @@ Character['Inventory'].append([starter_item, weapon_index[starter_item]])
 
 def words(s):
     s = s.lower()
+    s = s.letters()
     if s == 'inventory':
         print_inv()
         return False
@@ -449,7 +450,8 @@ def words(s):
         print 'Commands: inventory, help, equip:, use:, attack'
         return False
     #elif str == 'forward' or str == 'goforward' or str == 'go forward':
-
+     elif s == 'Left Right Up Down ABAB':
+	print 'debug code 307'
     else:
         print 'I don\'t now what you want to do'
         return True
@@ -514,16 +516,19 @@ def random_monster(tier):
 def boss_battles(count):
     if count == 20:
         init_boss_battle(1)
+	Character['Tier'] += 1
     if count == 40:
         init_boss_battle(2)
+	Character['Tier'] += 1
     if count == 60:
         init_boss_battle(3)
+	Character['Tier'] += 1
     if count == 80:
         init_boss_battle(4)
+	Character['Tier'] += 1
     if count == 100:
         init_boss_battle(5)
-    if Character['Alive']:
-        Character['Tier'] += 1
+	Character['Tier'] += 1
 
 
 counter = 0
