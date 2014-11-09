@@ -1,8 +1,10 @@
 from __future__ import division
 import random
 import re
+
 import sys
 import time
+
 import colorama
 from colorama import Fore, Back, Style
 
