@@ -548,8 +548,14 @@ def boss_battles(count):
 def default_commands(s):
     if s.lower().strip().startswith("stat"):
         pretty_print('-' * 25)
-        pretty_print('Your health is %.2f')
-
+        pretty_print('Your health is %.2f of %.2f' % (Character['Health'], Character['Max_Health']))
+        pretty_print('You have %d arrows' % Character['Arrows'])
+        if Character['Rail Gun Ammunition'] > 0:
+            pretty_print('You have %d rail gun ammo' % Character['Rail Gun Ammunition'])
+        pretty_print('You are level %d' % Character['Level'])
+        pretty_print('You are tier %d' % Character['Tier'])
+        pretty_print('You have %d gold' % Character['Gold'])
+        pretty_print('You have %d XP' % Character['XP'])
         pretty_print('-' * 25)
         return True
 
