@@ -226,6 +226,7 @@ def create_attack(name, monster_hp, attk_strength, defense_modifier=random.randr
             #Add random chance of enemy dying
             if monster_health <= 0:
                 print 'You have defeated the %s %s' % (adj, name)
+                give_loot()
                 end_battle = True
             if monster_attacks and not end_battle:
                 dmg = attk_strength * (1 - effective_armor_defense() / 100)
@@ -395,7 +396,7 @@ def chest():
         s = s.lower()
         if s == 'open chest' or s == 'yes':
             print 'You open the chest'
-            event = random.randint(4)
+            event = random.randrange(4)
             if event == 0:
                 Character['Health'] -= 0.5 * Character['Health']
                 print 'A trap was sprung and you lost 50% of your health'
@@ -476,15 +477,24 @@ def random_event(tier):
 
 
 def give_loot():
-    Character['Gold'] += 10 * Character['Tier'] + random.randrange(16)
-    Character['XP'] += 30 + random.randrange(21)
+    gold = 10 * Character['Tier'] + random.randrange(16)
+    Character['Gold'] += gold
+    print 'You gained %d gold!' % gold
+    xp = 30 + random.randrange(21)
+    Character['XP'] += xp
+    print 'You gained %d XP!' % xp
 
     if random.randrange(2) == 0:
-        Character['Arrows'] += random.randrange(4) + 1
+        arrows = random.randrange(4) + 1
+        Character['Arrows'] += arrows
+        print 'Additionally, you find %d arrows' % arrows
     if random.randrange(4) == 0 and Character['Tier'] > 3:
-        Character['Rail Gun Ammunition'] += random.randrange(7) + 1
+        rail_gun = random.randrange(7) + 1
+        Character['Rail Gun Ammunition'] += rail_gun
+        print 'You find %d rail gun ammo' % rail_gun
 
     if Character['XP'] >= 100:
+        print color('Level Up!', Fore.YELLOW + Style.BRIGHT)
         Character['Level'] += 1
         Character['Max_Health'] += 50 + random.randrange(51)
         Character['Health'] = Character['Max_Health']
