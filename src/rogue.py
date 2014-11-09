@@ -62,6 +62,15 @@ def print_inv():
         print "Name: %s Damage:  %.2f" % (item[0], item[1])
 
 
+def pretty_print(s, c=Fore.GREEN):
+    print c + Style.BRIGHT
+    for i in str(s):
+        time.sleep(1 / len(continuation))
+        sys.stdout.write(i)
+        sys.stdout.flush()
+    print Fore.RESET + Style.RESET_ALL
+
+
 print 'Hello %s' % (Character['Name'])
 
 raw_input('Press ENTER to start ')
@@ -531,6 +540,18 @@ def boss_battles(count):
 
     if Character['Alive'] and did_battle:
         Character['Tier'] += 1
+        print color('You are now Tier %d' % Character['Tier'], Fore.YELLOW + Style.BRIGHT)
+
+
+def default_commands(s):
+    if s.lower().strip().startswith("stat"):
+        print '-' * 25
+        print 'Your health is %.2f'
+
+        print '-' * 25
+        return True
+
+    return False
 
 
 counter = 0
