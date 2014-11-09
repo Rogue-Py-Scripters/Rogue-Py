@@ -229,7 +229,7 @@ def create_attack(name, monster_hp, attk_strength, defense_modifier=random.randr
             print_healths = False
             if player_attack_weapon and not end_battle:
                 dmg = ([x[1] for x in Character['Inventory'] if x[0] == player_attack_weapon][0]) * (
-                    1 - defense_modifier / 100)
+                1 - defense_modifier / 100)
                 monster_health -= dmg
                 pretty_print(
                     'You attack with your %s and the %s %s loses %.2f health' % (player_attack_weapon, adj, name, dmg))
