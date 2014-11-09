@@ -78,7 +78,7 @@ raw_input('Press ENTER to start ')
 # Item Lists
 current_tier = {}
 
-tier1 = {'pen': 7, 'butterfly': 0.1, 'bottle of Asprin': 5, 'fern': 5, 'baby': 15, 'teddy bear': 6,
+tier1 = {'pen': 7, 'butterfly': 0.1, 'bottle of Aspirin': 5, 'fern': 5, 'baby': 15, 'teddy bear': 6,
          'keyboard': 7, 'mouse': 6, 'salt shaker': 5, 'lamp': 7, 'shoebox': 5, 'plunger': 7, 'bow': 10}
 # 20-40
 tier2 = {'fountain pen': 20, 'sharpened twig': 20, 'branch': 30, 'sapling': 25, 'rock': 35, 'dead raccoon': 37,
@@ -256,7 +256,9 @@ def create_attack(name, monster_hp, attk_strength, defense_modifier=random.randr
             if end_battle:
                 break
             s = raw_input('What do you want to do? ').lower()
-            if s.lower().replace(' ', '').startswith('inv'):
+            if default_commands(s):
+                pass
+            elif s.lower().replace(' ', '').startswith('inv'):
                 print_inv()
             elif match("attack(?: with )?(.*)", s):
                 item = re.match("attack(?: with )?(.*)", s).group(1)
@@ -388,7 +390,7 @@ def find_leaf():
     while continue_looping:
         s = raw_input('What do you want to do? ')
         s = s.lower()
-        if s == 'pick up leaf' or s == 'take leaf' or s == 'put leaf in inventory':
+        if match('pick ?up.*', s) or s.startswith('take') or s == 'put leaf in inventory' or s.startswih('examine'):
             continue_looping = False
         elif s == 'eat leaf':
             pretty_print('You get ebolaids and die')
