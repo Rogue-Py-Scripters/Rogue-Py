@@ -463,7 +463,7 @@ def words(s):
         pretty_print('Commands: inventory, help, equip:, use:, attack')
         return False
     elif s == 'Left Right Up Down ABAB':
-        pretty_print ('debug code 307')
+        #pretty_print ('debug code 307')
     else:
         pretty_print('I don\'t now what you want to do')
         return True
