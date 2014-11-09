@@ -462,8 +462,14 @@ def words(s):
             'Type what you want to do ex. Go forward, to use an item, type use: and item, to equip items, use equip:')
         pretty_print('Commands: inventory, help, equip:, use:, attack')
         return False
+<<<<<<< HEAD
     elif s == 'Left Right Up Down ABAB':
 	pretty_print ('debug code 307')
+=======
+    #elif str == 'forward' or str == 'goforward' or str == 'go forward':
+    elif s == 'Left Right Up Down ABAB':
+        print 'debug code 307'
+>>>>>>> a408e6d09119cea98b7d7db3fe8b26eb2f2c938d
     else:
         pretty_print('I don\'t now what you want to do')
         return True
@@ -526,25 +532,7 @@ def random_monster(tier):
 
 
 def boss_battles(count):
-    did_battle = False
-    if count == 20:
-        init_boss_battle(1)
-<<<<<<< HEAD
-	Character['Tier'] += 1
-    if count == 40:
-        init_boss_battle(2)
-	Character['Tier'] += 1
-    if count == 60:
-        init_boss_battle(3)
-	Character['Tier'] += 1
-    if count == 80:
-        init_boss_battle(4)
-	Character['Tier'] += 1
-    if count == 100:
-        init_boss_battle(5)
-	Character['Tier'] += 1
-=======
-        did_battle = True
+    did_battle = True
     if count == 40:
         init_boss_battle(2)
         did_battle = True
@@ -578,8 +566,6 @@ def default_commands(s):
         return True
 
     return False
->>>>>>> 454435debfa2caf42dddce5dd5f69d222bc214d3
-
 
 counter = 0
 while Character['Alive']:
