@@ -436,8 +436,21 @@ def random_monster(tier):
     stats = monster_tiers[tier - 1][monster]
     return create_attack(monster, stats[1], stats[0], 0)
 
-
+def boss_battles(count):
+    if count == 20:
+        init_boss_battle(1)
+    if count == 20:
+        init_boss_battle(2)
+    if count == 20:
+        init_boss_battle(3)
+    if count == 20:
+        init_boss_battle(4)
+    if count == 20:
+        init_boss_battle(5)
+counter = 0
 while Character['Alive']:
+    counter += 1
+    
     print Fore.CYAN + Style.BRIGHT
     continuation = ('-' * 25) + '\nYOU CONTINUE YOUR JOURNEY\n' + ('-' * 25)
     for i in continuation:
@@ -458,6 +471,7 @@ while Character['Alive']:
         print 'I no know what u mean'
         pass
         #error handling
+    boss_battles(counter)
 
 
         #keep_playing = True
