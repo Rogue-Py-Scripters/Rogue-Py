@@ -462,9 +462,8 @@ def words(s):
             'Type what you want to do ex. Go forward, to use an item, type use: and item, to equip items, use equip:')
         pretty_print('Commands: inventory, help, equip:, use:, attack')
         return False
-    #elif str == 'forward' or str == 'goforward' or str == 'go forward':
-     elif s == 'Left Right Up Down ABAB':
-	print 'debug code 307'
+    elif s == 'Left Right Up Down ABAB':
+	pretty_print ('debug code 307')
     else:
         pretty_print('I don\'t now what you want to do')
         return True
