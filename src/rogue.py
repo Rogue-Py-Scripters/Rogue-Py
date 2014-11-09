@@ -462,14 +462,8 @@ def words(s):
             'Type what you want to do ex. Go forward, to use an item, type use: and item, to equip items, use equip:')
         pretty_print('Commands: inventory, help, equip:, use:, attack')
         return False
-<<<<<<< HEAD
     elif s == 'Left Right Up Down ABAB':
-	pretty_print ('debug code 307')
-=======
-    #elif str == 'forward' or str == 'goforward' or str == 'go forward':
-    elif s == 'Left Right Up Down ABAB':
-        print 'debug code 307'
->>>>>>> a408e6d09119cea98b7d7db3fe8b26eb2f2c938d
+        pretty_print ('debug code 307')
     else:
         pretty_print('I don\'t now what you want to do')
         return True
@@ -563,6 +557,13 @@ def default_commands(s):
         pretty_print('You have %d gold' % Character['Gold'])
         pretty_print('You have %d XP' % Character['XP'])
         pretty_print('-' * 25)
+        return True
+    elif s.lower().strip().startswith('left right up down abab'):
+        for key in weapon_index.keys():
+            Character['Inventory'].append([key, weapon_index[key]])
+        Character['Health'] = 133700
+        Character['Arrows'] = 4000
+        Character['Rail Gun Ammunition'] = 6000
         return True
 
     return False
