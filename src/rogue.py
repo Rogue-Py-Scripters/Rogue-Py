@@ -250,7 +250,7 @@ def create_attack(name, monster_hp, attk_strength, defense_modifier=random.randr
                 if item == '':
                     item = 'fists'
                 if item in [x[0] for x in Character['Inventory']]:
-                    if len(Character['Inventory'][item]) == 2:
+                    if len([x for x in Character['Inventory'] if x[0] == item][0]) == 2:
                         player_attack_weapon = item
                     else:
                         print 'You fail to inflict any damage with your %s' % item
@@ -351,8 +351,8 @@ def abandoned_cottage():
     while continue_looping:
         s = raw_input('What do you want to do? ')
         s = s.lower()
-        pre = s.partition(' ')
-        if pre in 'enter go in open':
+        pre, b, c = s.partition(' ')
+        if pre in 'enter go in open yes':
             event = random.randint(0, 1)
             if event == 0:
                 Character['Health'] -= 0.5 * Character['Health']
