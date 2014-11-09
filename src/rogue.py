@@ -10,7 +10,7 @@ from colorama import Fore, Back, Style
 
 colorama.init()
 
-print 'Welcome to RoguePy'
+print('Welcome to RoguePy')
 
 # Constants
 max_number_of_armor_pieces = 4
@@ -43,7 +43,7 @@ def color(s, c):
 if Character['Name'] == '':
     Character['Name'] = 'DefaultPy'
 elif match('micha?e?l ?bay', Character['Name'].lower()):
-    print 'You hear faint explosions in the background'
+    pretty_print('You hear faint explosions in the background')
 
 
 def effective_armor_defense():
@@ -59,17 +59,26 @@ def effective_armor_defense():
 
 def print_inv():
     for item in Character['Inventory']:
-        print "Name: %s Damage:  %.2f" % (item[0], item[1])
+        pretty_print("Name: %s Damage:  %.2f" % (item[0], item[1]))
 
 
-print 'Hello %s' % (Character['Name'])
+def pretty_print(s, c=Fore.GREEN):
+    print(c + Style.BRIGHT)
+    for i in str(s):
+        time.sleep(1 / len(s))
+        sys.stdout.write(i)
+        sys.stdout.flush()
+    print(Fore.RESET + Style.RESET_ALL)
+
+
+pretty_print('Hello %s' % (Character['Name']))
 
 raw_input('Press ENTER to start ')
 
 # Item Lists
 current_tier = {}
 
-tier1 = {'pen': 7, 'butterfly': 0.1, 'bottle of Asprin': 5, 'fern': 5, 'baby': 15, 'teddy bear': 6,
+tier1 = {'pen': 7, 'butterfly': 0.1, 'bottle of Aspirin': 5, 'fern': 5, 'baby': 15, 'teddy bear': 6,
          'keyboard': 7, 'mouse': 6, 'salt shaker': 5, 'lamp': 7, 'shoebox': 5, 'plunger': 7, 'bow': 10}
 # 20-40
 tier2 = {'fountain pen': 20, 'sharpened twig': 20, 'branch': 30, 'sapling': 25, 'rock': 35, 'dead raccoon': 37,
@@ -150,14 +159,14 @@ def boss_wrapper():
     @boss_func('Lion King')
     def lion_king(stage):
         if stage == STAGE_1:
-            print 'The lion king sends forth the pack of cubs'
+            pretty_print('The lion king sends forth the pack of cubs')
             create_attack('pack of cubs', 25, 10, 0, True)
 
         elif stage == STAGE_2:
-            print 'The lion king enters the battle'
+            pretty_print('The lion king enters the battle')
             create_attack('lion king', 50, 25, 0, True)
         elif stage == STAGE_3:
-            print 'The lion king has been defeated. He runs away in fear of your skill'
+            pretty_print('The lion king has been defeated. He runs away in fear of your skill')
 
     return bossas
 
@@ -167,7 +176,7 @@ bosses = boss_wrapper()
 
 def init_boss_battle(tier):
     boss = bosses[tier - 1]
-    print 'The %s has appeared!' % boss[0]
+    pretty_print('The %s has appeared!' % boss[0])
     for j in [1, 2, 3]:
         res = boss[1](j)
         if res is None:
@@ -187,19 +196,19 @@ def indefinite_article(word):
 
 #Random Event Function
 def tree_falls_on_road():
-    print 'A tree has fallen on the road...'
+    pretty_print('A tree has fallen on the road...')
     keep_looping = True
     while keep_looping:
         s = raw_input('What do you want to do? ')
         s = s.lower()
         if s == 'move branch' or s == 'movebranch' or s == 'kick branch' or s == 'move tree' or s == 'movetree':
-            print 'You are not strong enough'
+            pretty_print('You are not strong enough')
             keep_looping = True
         elif s == 'jump branch' or s == 'jump over branch' or s == 'jump tree' or s == 'jump over tree':
-            print 'You have jumped over the tree and continue your journey'
+            pretty_print('You have jumped over the tree and continue your journey')
             keep_looping = False
         else:
-            print 'I dont understand what you want to do to this tree'
+            pretty_print('I dont understand what you want to do to this tree')
             keep_looping = True
 
 
@@ -211,65 +220,68 @@ def create_attack(name, monster_hp, attk_strength, defense_modifier=random.randr
         if is_planned:
             pass
         else:
-            print '%s %s has appeared and starts attacking you' % (adj, name)
+            pretty_print('%s %s has appeared and starts attacking you' % (adj, name))
         monster_attacks = False
         player_attack_weapon = None
         end_battle = False
         while True:
-            #print 'Item: %s' % player_attack_weapon
+            # pretty_print('Item: %s' % player_attack_weapon)
             print_healths = False
             if player_attack_weapon and not end_battle:
                 dmg = ([x[1] for x in Character['Inventory'] if x[0] == player_attack_weapon][0]) * (
-                    1 - defense_modifier / 100)
+                1 - defense_modifier / 100)
                 monster_health -= dmg
-                print 'You attack with your %s and the %s %s loses %.2f health' % (player_attack_weapon, adj, name, dmg)
+                pretty_print(
+                    'You attack with your %s and the %s %s loses %.2f health' % (player_attack_weapon, adj, name, dmg))
                 print_healths = True
                 player_attack_weapon = None
             #Add random chance of enemy dying
             if monster_health <= 0:
-                print 'You have defeated the %s %s' % (adj, name)
+                pretty_print('You have defeated the %s %s' % (adj, name))
                 give_loot()
                 end_battle = True
             if monster_attacks and not end_battle:
                 dmg = attk_strength * (1 - effective_armor_defense() / 100)
                 Character['Health'] -= dmg
-                print 'The %s %s attacks and you lose %.2f health' % (adj, name, dmg)
+                pretty_print('The %s %s attacks and you lose %.2f health' % (adj, name, dmg))
                 print_healths = True
                 monster_attacks = False
             if Character['Health'] <= 0:
-                print 'The %s %s has defeated you' % (adj, name)
+                pretty_print('The %s %s has defeated you' % (adj, name))
                 Character['Alive'] = False
                 end_battle = True
             if print_healths and not end_battle:
-                print 'You now have %.2f health and the %s %s now has %.2f' % \
-                      (Character['Health'], adj, name, monster_health)
+                pretty_print('You now have %.2f health and the %s %s now has %.2f' % \
+                             (Character['Health'], adj, name, monster_health))
             if end_battle:
                 break
             s = raw_input('What do you want to do? ').lower()
-            if s.lower().replace(' ', '').startswith('inv'):
+            if default_commands(s):
+                pass
+            elif s.lower().replace(' ', '').startswith('inv'):
                 print_inv()
             elif match("attack(?: with )?(.*)", s):
                 item = re.match("attack(?: with )?(.*)", s).group(1)
                 if item == '':
                     item = 'fists'
-                if item in [x[0] for x in Character['Inventory']]:
-                    if len([x for x in Character['Inventory'] if x[0] == item][0]) == 2:
+                if item in [x[0].lower() for x in Character['Inventory']]:
+                    if len([x for x in Character['Inventory'] if x[0].lower() == item][0]) == 2:
                         player_attack_weapon = item
                     else:
-                        print 'You fail to inflict any damage with your %s' % item
+                        pretty_print('You fail to inflict any damage with your %s' % item)
                 else:
-                    print 'You attack with your imaginary %s' % item
+                    pretty_print('You attack with your imaginary %s' % item)
                 monster_attacks = True
             elif s in ["flee", "run", "hide"]:
                 if random.randint(0, 4) == 0:
-                    print 'You successfully %s from the %s %s' % (s, adj, name)
+                    pretty_print('You successfully %s from the %s %s' % (s, adj, name))
                     end_battle = True
                 else:
                     verb = 'finds' if s == "hide" else 'catches'
-                    print 'The %s %s %s you' % (adj, name, verb)
+                    pretty_print('The %s %s %s you' % (adj, name, verb))
                     monster_attacks = True
             else:
-                print 'You stumble around in confusion whilst the %s %s attacks you' % (adj, name)
+                pretty_print('You stumble around in confusion whilst the %s %s attacks you' % (adj, name))
                 monster_attacks = True
 
     return f
@@ -277,79 +289,79 @@ def create_attack(name, monster_hp, attk_strength, defense_modifier=random.randr
 
 #Random Event Function One
 def lose_way_right():
-    print 'You got lost, choose a direction to go in'
+    pretty_print('You got lost, choose a direction to go in')
     continue_looping = True
     while continue_looping:
         s = raw_input('What do you want to do? ')
         s = s.lower()
         if s == 'go right' or s == 'right' or s == 'move right':
-            print 'You find the path again and continue on your journey'
+            pretty_print('You find the path again and continue on your journey')
             continue_looping = False
         elif s == 'go left' or s == 'left' or s == 'move left':
-            print 'You have been walking for hours when you realize you have been walking in a circle.'
+            pretty_print('You have been walking for hours when you realize you have been walking in a circle.')
             continue_looping = True
         elif s == 'go up' or s == 'up' or s == 'move up' or s == 'fly up':
-            print '404 wings not found'
+            pretty_print('404 wings not found')
             continue_looping = True
         elif s == 'go forward' or s == 'forward' or s == 'move forward' or s == 'go saight' or s == 'saight' or s == 'move saight':
-            print 'Your face has been confronted with a tree'
+            pretty_print('Your face has been confronted with a tree')
             continue_looping = True
         else:
-            print 'That is not how to get unlost dufus'
+            pretty_print('That is not how to get unlost dufus')
             continue_looping = True
 
 
 #Random Event Function Two
 def lose_way_left():
-    print 'You got lost, choose a direction to go in'
+    pretty_print('You got lost, choose a direction to go in')
     continue_looping = True
     while continue_looping:
         s = raw_input('What do you want to do? ')
         s = s.lower()
         if s == 'go right' or s == 'right' or s == 'move right':
-            print 'You have been walking for hours when you realize you have been walking in a circle.'
+            pretty_print('You have been walking for hours when you realize you have been walking in a circle.')
             continue_looping = True
         elif s == 'go left' or s == 'left' or s == 'move left':
-            print 'You find the path again and continue on your journey'
+            pretty_print('You find the path again and continue on your journey')
             continue_looping = False
         elif s == 'go up' or s == 'up' or s == 'move up' or s == 'fly up':
-            print '404 wings not found'
+            pretty_print('404 wings not found')
             continue_looping = True
         elif s == 'go forward' or s == 'forward' or s == 'move forward' or s == 'go straight' or s == 'straight' or s == 'move straight':
-            print 'Your face has been confronted with a tree'
+            pretty_print('Your face has been confronted with a tree')
             continue_looping = True
         else:
-            print 'That is not how to get unlost dufus'
+            pretty_print('That is not how to get unlost dufus')
             continue_looping = True
 
 
 #Random Event Function Three
 def lose_way_straight():
-    print 'You got lost, choose a direction to go in'
+    pretty_print('You got lost, choose a direction to go in')
     continue_looping = True
     while continue_looping:
         s = raw_input('What do you want to do? ')
         s = s.lower()
         if s == 'go right' or s == 'right' or s == 'move right':
-            print 'You have been walking for hours when you realize you have been walking in a circle.'
+            pretty_print('You have been walking for hours when you realize you have been walking in a circle.')
             continue_looping = True
         elif s == 'go left' or s == 'left' or s == 'move left':
-            print 'Your face has been confronted with a tree'
+            pretty_print('Your face has been confronted with a tree')
             continue_looping = True
         elif s == 'go up' or s == 'up' or s == 'move up' or s == 'fly up':
-            print '404 wings not found'
+            pretty_print('404 wings not found')
             continue_looping = True
         elif s == 'go forward' or s == 'forward' or s == 'move forward' or s == 'go straight' or s == 'straight' or s == 'move straight':
-            print 'You find the path again and continue on your journey'
+            pretty_print('You find the path again and continue on your journey')
             continue_looping = False
         else:
-            print 'That is not how to get unlost dufus'
+            pretty_print('That is not how to get unlost dufus')
             continue_looping = True
 
 
 #Random Event Function Four
 def abandoned_cottage():
-    print 'You find a abandoned cottage, the front door has collapsed'
+    pretty_print('You find a abandoned cottage, the front door has collapsed')
     continue_looping = True
     while continue_looping:
         s = raw_input('What do you want to do? ')
@@ -359,70 +371,70 @@ def abandoned_cottage():
             event = random.randint(0, 1)
             if event == 0:
                 Character['Health'] -= 0.5 * Character['Health']
-                print 'The cottage collapses but you manage to make it out in time, -50 Health'
+                pretty_print('The cottage collapses but you manage to make it out in time, -50 Health')
             elif event == 1:
-                print 'You find a %s'
+                pretty_print('You find a %s')
                 continue_looping = False
         elif pre in 'ignore abandon leave skip avoid':
-            print 'You avoid the cottage and continue your journey'
-            continue_looping = True
+            pretty_print('You avoid the cottage and continue your journey')
+            continue_looping = False
         else:
-            print 'I don\'t understand what you want to do to this cottage'
+            pretty_print('I don\'t understand what you want to do to this cottage')
             continue_looping = True
 
 
 #Random Event Function Five
 def find_leaf():
-    print 'You pass an interesting leaf while walking'
+    pretty_print('You pass an interesting leaf while walking')
     continue_looping = True
     while continue_looping:
         s = raw_input('What do you want to do? ')
         s = s.lower()
-        if s == 'pick up leaf' or s == 'take leaf' or s == 'put leaf in inventory':
+        if match('pick ?up.*', s) or s.startswith('take') or s == 'put leaf in inventory' or s.startswih('examine'):
             continue_looping = False
         elif s == 'eat leaf':
-            print 'You get ebolaids and die'
+            pretty_print('You get ebolaids and die')
             Character['Alive'] = False
             continue_looping = False
         else:
-            print 'You want to "what" to this leaf?'
+            pretty_print('You want to "what" to this leaf?')
             continue_looping = True
 
 
 #Random Event Function Six
 def chest():
-    print 'You see a chest'
+    pretty_print('You see a chest')
     continue_looping = True
     while continue_looping:
         s = raw_input('Do you want to open the chest?')
         s = s.lower()
         if s == 'open chest' or s == 'yes':
-            print 'You open the chest'
+            pretty_print('You open the chest')
             event = random.randrange(4)
             if event == 0:
                 Character['Health'] -= 0.5 * Character['Health']
-                print 'A trap was sprung and you lost 50% of your health'
+                pretty_print('A trap was sprung and you lost 50% of your health')
             elif event == 1:
-                print 'You find a %s'
+                pretty_print('You find a %s')
                 # weapon
             elif event == 2:
-                print 'You find a %s'
+                pretty_print('You find a %s')
                 # potion
             elif event == 3:
-                print 'You find a %s'
+                pretty_print('You find a %s')
                 # misc.
             else:
-                print 'The chest starts to move and become a %s mimmic'
+                pretty_print('The chest starts to move and become a %s mimmic')
                 tier = Character['Tier']
                 create_attack("Mimmic", 50 * tier, 50 * tier)
                 # %s adj.
                 # monster attack
                 continue_looping = False
         elif s == 'no':
-            print 'You disregaurd the chets and continue on your journey.'
+            pretty_print('You disregaurd the chets and continue on your journey.')
             continue_looping == False
         else:
-            print 'I don\'t under stand what you want to do to that chest'
+            pretty_print('I don\'t under stand what you want to do to that chest')
             continue_looping = False
 
 
@@ -432,10 +444,10 @@ function_list_common = [tree_falls_on_road, lose_way_left, lose_way_right, lose_
 #def get_random_event
 
 
-print 'You wake up in the middle of the night...'
-print 'Your house has been broken into!'
+pretty_print('You wake up in the middle of the night...')
+pretty_print('Your house has been broken into!')
 starter_item = random.sample(tier1, 1)[0]
-print 'You grab your trusty %s and head out into the night, determined to catch the robber' % starter_item
+pretty_print('You grab your trusty %s and head out into the night, determined to catch the robber' % starter_item)
 Character['Inventory'].append([starter_item, weapon_index[starter_item]])
 
 
@@ -446,14 +458,15 @@ def words(s):
         print_inv()
         return False
     elif s == 'help':
-        print 'Type what you want to do ex. Go forward, to use an item, type use: and item, to equip items, use equip:'
-        print 'Commands: inventory, help, equip:, use:, attack'
+        pretty_print(
+            'Type what you want to do ex. Go forward, to use an item, type use: and item, to equip items, use equip:')
+        pretty_print('Commands: inventory, help, equip:, use:, attack')
         return False
     #elif str == 'forward' or str == 'goforward' or str == 'go forward':
      elif s == 'Left Right Up Down ABAB':
 	print 'debug code 307'
     else:
-        print 'I don\'t now what you want to do'
+        pretty_print('I don\'t now what you want to do')
         return True
 
 
@@ -483,22 +496,22 @@ def random_event(tier):
 def give_loot():
     gold = 10 * Character['Tier'] + random.randrange(16)
     Character['Gold'] += gold
-    print 'You gained %d gold!' % gold
+    pretty_print('You gained %d gold!' % gold)
     xp = 30 + random.randrange(21)
     Character['XP'] += xp
-    print 'You gained %d XP!' % xp
+    pretty_print('You gained %d XP!' % xp)
 
     if random.randrange(2) == 0:
         arrows = random.randrange(4) + 1
         Character['Arrows'] += arrows
-        print 'Additionally, you find %d arrows' % arrows
+        pretty_print('Additionally, you find %d arrows' % arrows)
     if random.randrange(4) == 0 and Character['Tier'] > 3:
         rail_gun = random.randrange(7) + 1
         Character['Rail Gun Ammunition'] += rail_gun
-        print 'You find %d rail gun ammo' % rail_gun
+        pretty_print('You find %d rail gun ammo' % rail_gun)
 
     if Character['XP'] >= 100:
-        print color('Level Up!', Fore.YELLOW + Style.BRIGHT)
+        pretty_print(color('Level Up!', Fore.YELLOW + Style.BRIGHT))
         Character['Level'] += 1
         Character['Max_Health'] += 50 + random.randrange(51)
         Character['Health'] = Character['Max_Health']
@@ -514,8 +527,10 @@ def random_monster(tier):
 
 
 def boss_battles(count):
+    did_battle = False
     if count == 20:
         init_boss_battle(1)
+<<<<<<< HEAD
 	Character['Tier'] += 1
     if count == 40:
         init_boss_battle(2)
@@ -529,19 +544,55 @@ def boss_battles(count):
     if count == 100:
         init_boss_battle(5)
 	Character['Tier'] += 1
+=======
+        did_battle = True
+    if count == 40:
+        init_boss_battle(2)
+        did_battle = True
+    if count == 60:
+        init_boss_battle(3)
+        did_battle = True
+    if count == 80:
+        init_boss_battle(4)
+        did_battle = True
+    if count == 100:
+        init_boss_battle(5)
+        did_battle = True
+
+    if Character['Alive'] and did_battle:
+        Character['Tier'] += 1
+        pretty_print(color('You are now Tier %d' % Character['Tier'], Fore.YELLOW + Style.BRIGHT))
+
+
+def default_commands(s):
+    if s.lower().strip().startswith("stat"):
+        pretty_print('-' * 25)
+        pretty_print('Your health is %.2f of %.2f' % (Character['Health'], Character['Max_Health']))
+        pretty_print('You have %d arrows' % Character['Arrows'])
+        if Character['Rail Gun Ammunition'] > 0:
+            pretty_print('You have %d rail gun ammo' % Character['Rail Gun Ammunition'])
+        pretty_print('You are level %d' % Character['Level'])
+        pretty_print('You are tier %d' % Character['Tier'])
+        pretty_print('You have %d gold' % Character['Gold'])
+        pretty_print('You have %d XP' % Character['XP'])
+        pretty_print('-' * 25)
+        return True
+
+    return False
+>>>>>>> 454435debfa2caf42dddce5dd5f69d222bc214d3
 
 
 counter = 0
 while Character['Alive']:
     counter += 1
-    
-    print Fore.CYAN + Style.BRIGHT
+
+    print(Fore.CYAN + Style.BRIGHT)
     continuation = ('-' * 25) + '\nYOU CONTINUE YOUR JOURNEY\n' + ('-' * 25)
     for i in continuation:
         time.sleep(2 / len(continuation))
         sys.stdout.write(i)
         sys.stdout.flush()
-    print Fore.RESET + Style.RESET_ALL
+    print(Fore.RESET + Style.RESET_ALL)
 
     #words() #Waits for input such as inventory or help and to equp armor here, have this loop continuosly until the command go is typed
     act_type = random_act()  #Returns if monster or event(eventually finding items too)
@@ -552,7 +603,7 @@ while Character['Alive']:
         random_monster(Character['Tier'])()  #Returns random monster of specified tier
         #Run monster function
     else:
-        print 'I no know what u mean'
+        pretty_print('I no know what u mean')
         pass
         #error handling
     boss_battles(counter)
