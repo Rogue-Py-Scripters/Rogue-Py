@@ -109,6 +109,19 @@ monster_tier5 = {'Loch Ness Monster': [200, 300], 'Yeti': [230, 310], 'Vampire':
 
 monster_tiers = [monster_tier1, monster_tier2, monster_tier3, monster_tier4, monster_tier5]
 
+# number is amount of healing
+healing = {'Tier One Potion Of Healing': 10, 'Tier Two Potion Of Healing': 20, 'Tier Three Potion Of Healing': 30,
+           'Tier Four Potion Of Healing': 40, 'Tier Five Potion Of Healing': 50}
+
+#number is % of extra damage
+strength = {'Tier One Potion of Strength': 5, 'Tier Two Potion of Strength': 10, 'Tier Three Potion of Strength': 15,
+            'Tier Four Potion of Strength': 20, 'Tier Five Potion of Strength': 25}
+
+#number is amount of damage resistance (could handle similar to armor)
+resistance = {'Tier One Potion of Resistance': 5, 'Tier Two Potion of Resistance': 10,
+              'Tier Three Potion of Resistance': 15, 'Tier Four Potion of Resistance': 20,
+              'Tier Five Potion of Resistance': 25}
+
 #Possible Return States
 STAGE_DEFEATED = 0
 PLAYER_DEFEATED = 1
