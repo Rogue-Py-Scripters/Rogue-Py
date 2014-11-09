@@ -252,8 +252,8 @@ def create_attack(name, monster_hp, attk_strength, defense_modifier=random.randr
                 item = re.match("attack(?: with )?(.*)", s).group(1)
                 if item == '':
                     item = 'fists'
-                if item in [x[0] for x in Character['Inventory']]:
-                    if len([x for x in Character['Inventory'] if x[0] == item][0]) == 2:
+                if item in [x[0].lower() for x in Character['Inventory']]:
+                    if len([x for x in Character['Inventory'] if x[0].lower() == item][0]) == 2:
                         player_attack_weapon = item
                     else:
                         print 'You fail to inflict any damage with your %s' % item
@@ -512,17 +512,24 @@ def random_monster(tier):
 
 
 def boss_battles(count):
+    did_battle = False
     if count == 20:
         init_boss_battle(1)
+        did_battle = True
     if count == 40:
         init_boss_battle(2)
+        did_battle = True
     if count == 60:
         init_boss_battle(3)
+        did_battle = True
     if count == 80:
         init_boss_battle(4)
+        did_battle = True
     if count == 100:
         init_boss_battle(5)
-    if Character['Alive']:
+        did_battle = True
+
+    if Character['Alive'] and did_battle:
         Character['Tier'] += 1
 
 
