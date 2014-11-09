@@ -502,14 +502,16 @@ def random_monster(tier):
 def boss_battles(count):
     if count == 20:
         init_boss_battle(1)
-    if count == 20:
+    if count == 40:
         init_boss_battle(2)
-    if count == 20:
+    if count == 60:
         init_boss_battle(3)
-    if count == 20:
+    if count == 80:
         init_boss_battle(4)
-    if count == 20:
+    if count == 100:
         init_boss_battle(5)
+    if Character['Alive']:
+        Character['Tier'] += 1
 
 
 counter = 0
