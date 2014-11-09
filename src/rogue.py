@@ -385,7 +385,143 @@ def find_leaf():
             print 'You want to "what" to this leaf?'
             continue_looping = True
 
+#Random Event Function One
+def lose_way_right():
+        print 'You got lost, choose a direction to go in'
+        keep_looping = True
+        while keep_looping:
+                str = raw_input('What do you want to do? ')
+                str = str.lower()
+                if str == 'go right' or str == 'right' or str == 'move right':
+                        print 'You find the path again and continue on your journey'
+                        keep_looping = False
+                elif str == 'go left' or str == 'left' or str == 'move left':
+                        print 'You have been walking for hours when you realize you have been walking in a circle.'
+                        keep_looping = True
+				elif str == 'go up' or str == 'up' or str == 'move up' or str == 'fly up':
+                        print '404 wings not found'
+                        keep_looping = True
+				elif str == 'go foreward' or str == 'foreward' or str == 'move foreward' str == 'go straight' or str == 'straight' or str == 'move straight':
+                        print 'Your face has been confronted with a tree'
+                        keep_looping = True
+                else:
+                        print 'That is not how to get unlost dufus'
+                        keep_looping = True
+#Random Event Function Two
+def lose_way_left():
+        print 'You got lost, choose a direction to go in'
+        keep_looping = True
+        while keep_looping:
+                str = raw_input('What do you want to do? ')
+                str = str.lower()
+                if str == 'go right' or str == 'right' or str == 'move right':
+                        print 'You have been walking for hours when you realize you have been walking in a circle.'
+                        keep_looping = True
+                elif str == 'go left' or str == 'left' or str == 'move left':
+                        print 'You find the path again and continue on your journey'
+                        keep_looping = False
+				elif str == 'go up' or str == 'up' or str == 'move up' or str == 'fly up':
+                        print '404 wings not found'
+                        keep_looping = True
+				elif str == 'go foreward' or str == 'foreward' or str == 'move foreward' str == 'go straight' or str == 'straight' or str == 'move straight':
+                        print 'Your face has been confronted with a tree'
+                        keep_looping = True
+                else:
+                        print 'That is not how to get unlost dufus'
+                        keep_looping = True
+#Random Event Function Three
+def lose_way_straight():
+        print 'You got lost, choose a direction to go in'
+        keep_looping = True
+        while keep_looping:
+                str = raw_input('What do you want to do? ')
+                str = str.lower()
+                if str == 'go right' or str == 'right' or str == 'move right':
+                        print 'You have been walking for hours when you realize you have been walking in a circle.'
+                        keep_looping = True
+                elif str == 'go left' or str == 'left' or str == 'move left':
+                        print 'Your face has been confronted with a tree'
+                        keep_looping = True
+				elif str == 'go up' or str == 'up' or str == 'move up' or str == 'fly up':
+                        print '404 wings not found'
+                        keep_looping = True
+				elif str == 'go foreward' or str == 'foreward' or str == 'move foreward' str == 'go straight' or str == 'straight' or str == 'move straight':
+                        print 'You find the path again and continue on your journey'
+                        keep_looping = False
+                else:
+                        print 'That is not how to get unlost dufus'
+                        keep_looping = True
+#Random Event Function Four
+def abandoned_cottage():
+        print 'You find a abandoned cottage, the front door has collapsed'
+        keep_looping = True
+        while keep_looping:
+                str = raw_input('What do you want to do? ')
+                str = str.lower()
+                if str == 'enter' or str == 'enter cottage' or str == 'go into cottage' or :
+                         event = random.randint(0, 1)
+						if event == 0:
+							Character['Health'] -= 0.5*Character['Health']
+							print 'The cottage collapses but you manage to make it out in time, -50% Health'
+						elif event == 1:
+							print 'You find a %s'
+                        keep_looping = False
+                elif str == 'left' or str == 'jump over branch' or str == 'jump tree' or str == 'jump over tree':
+                        print 'You have jumped over the tree and continue your journey'
+                        keep_looping = True
+                else:
+                        print 'I don\'t understand what you want to do to this tree'
+                        keep_looping = True
+#Random Event Function Five
+def find_leaf():
+        print 'You pass an interesting leaf while walking'
+        keep_looping = True
+        while keep_looping:
+                str = raw_input('What do you want to do? ')
+                str = str.lower()
+                if str == 'pick up leaf' or str == 'take leaf', or str == 'put leaf in inventory':
+					keep_looping = False
+                elif str == 'eat leaf':
+                        print 'You get ebolaids and die'
+						Character[Alive] = False
+                        keep_looping = False
+                else:
+                        print 'You want to "what" to this leaf?'
 
+#Random Event Function Six
+def chest():
+	print 'You see a chest'
+	keep_looping = True
+	while keep_looping:
+		str = raw_input('Do you want to open the chest?')
+		str = str.lower()
+		if str == 'open chest' or str == 'yes':
+			print 'You open the chest'
+			event = random.randint(4)
+			if event == 0:
+				Character['Health'] -= 0.5*Character['Health']
+				print 'A trap was sprung and you lost 50% of your health'
+			elif event == 1:
+				print 'You find a %s'
+				#weapon
+			elif event == 2:
+				print 'You find a %s'
+				#potion
+			elif event == 3:
+				print 'You find a %s'
+				#misc.
+			else:
+				print 'The chest starts to move and become a %s mimmic'
+				create_attack ("Mimmic", 50*tier, 50*tier)
+				#%s adj.
+				#monster attack
+				keep_looping = False
+		elif str == 'no':
+			print 'You disregaurd the chets and continue on your journey.'
+			keep_looping == False
+		else:
+			print 'I don\'t under stand what you want to do to that chest'
+			keep_looping = False
 function_list_common = [tree_falls_on_road, lose_way_left, lose_way_right, lose_way_straight, abandoned_cottage,
                         find_leaf]
 
