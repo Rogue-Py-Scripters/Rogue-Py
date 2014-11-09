@@ -18,10 +18,14 @@ Character = {
     'XP': 0,
     'Level': 0,
     'Health': 100,
+    'Max_Health': 100,
     'Inventory': [['fists', 1]],
     'Armor': [],
     'Alive': True,
-    'Tier': 1
+    'Tier': 1,
+    'Gold': 0,
+    'Arrows': 0,
+    'Rail Gun Ammunition': 0
 }
 
 
@@ -198,7 +202,7 @@ def tree_falls_on_road():
 
 
 #Monster Attack  (defense_modifier is percent damage reduction)
-def create_attack(name, monster_hp, attk_strength, defense_modifier=0, is_planned=False):
+def create_attack(name, monster_hp, attk_strength, defense_modifier=random.randrange(11), is_planned=False):
     def f():
         monster_health = monster_hp
         adj = random.choice(monster_adjs)
@@ -246,7 +250,10 @@ def create_attack(name, monster_hp, attk_strength, defense_modifier=0, is_planne
                 if item == '':
                     item = 'fists'
                 if item in [x[0] for x in Character['Inventory']]:
-                    player_attack_weapon = item
+                    if len(Character['Inventory'][item]) == 2:
+                        player_attack_weapon = item
+                    else:
+                        print 'You fail to inflict any damage with your %s' % item
                 else:
                     print 'You attack with your imaginary %s' % item
                 monster_attacks = True
@@ -431,10 +438,29 @@ def random_event(tier):
     return random.choice(function_list_common)
 
 
+def give_loot():
+    Character['Gold'] += 10 * Character['Tier'] + random.randrange(16)
+    Character['XP'] += 30 + random.randrange(21)
+
+    if random.randrange(2) == 0:
+        Character['Arrows'] += random.randrange(4) + 1
+    if random.randrange(4) == 0 and Character['Tier'] > 3:
+        Character['Rail Gun Ammunition'] += random.randrange(7) + 1
+
+    if Character['XP'] >= 100:
+        Character['Level'] += 1
+        Character['Max_Health'] += 50 + random.randrange(51)
+        Character['Health'] = Character['Max_Health']
+
+    lst = healing.keys() + strength.keys() + resistance.keys()
+    Character['Inventory'].append([random.choice(lst)])
+
+
 def random_monster(tier):
     monster = random.choice(monster_tiers[tier - 1].keys())
     stats = monster_tiers[tier - 1][monster]
     return create_attack(monster, stats[1], stats[0], 0)
+
 
 def boss_battles(count):
     if count == 20:
@@ -447,6 +473,8 @@ def boss_battles(count):
         init_boss_battle(4)
     if count == 20:
         init_boss_battle(5)
+
+
 counter = 0
 while Character['Alive']:
     counter += 1
